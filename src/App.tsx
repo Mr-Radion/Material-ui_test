@@ -4,31 +4,28 @@ import {
   Container,
   Toolbar,
   IconButton,
-  makeStyles,
   Typography,
   Box,
   Button,
+  Paper,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import LayerIcon from '@material-ui/icons/Layers';
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
+import { useHomeStyles } from './theme';
 
-// useStyles is a function for generating classes
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2), // 1 = 8 px by default
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 function App() {
-  const classes = useStyles();
+  const classes = useHomeStyles();
 
   return (
-    <div className="App">
+    <div className={classes.root}>
       <AppBar position="fixed">
         <Container fixed>
           <Toolbar>
@@ -55,6 +52,99 @@ function App() {
           </Toolbar>
         </Container>
       </AppBar>
+      <main>
+        <Paper
+          className={classes.mainFeaturesPost}
+          style={{ backgroundImage: `url(https://source.unsplash.com/random)` }}>
+          {/* paper background used as a background for the image. */}
+          <Container fixed>
+            {' '}
+            {/* maxWidth="sm" sm, md, lg*/}
+            <div className={classes.overlay} />
+            <Grid container>
+              <Grid item md={6}>
+                {/* lg, xl, md */}
+                <div className={classes.mainFeaturesPostContent}>
+                  <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                    Text
+                  </Typography>
+                  <Typography component="h5" color="inherit" paragraph>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua.
+                  </Typography>
+                  <Button variant="contained" color="secondary">
+                    Learn more
+                  </Button>
+                </div>
+              </Grid>
+            </Grid>
+          </Container>
+        </Paper>
+        <div className={classes.mainContent}>
+          <Container maxWidth="md">
+            <Typography variant="h2" align="center" color="textPrimary" gutterBottom>
+              Text
+            </Typography>
+            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
+            </Typography>
+            <div className={classes.mainButtons}>
+              <Grid container spacing={5} justify="center">
+                <Grid item>
+                  <Button variant="contained" color="primary">
+                    Start Now
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button variant="outlined" color="primary">
+                    Learn More
+                  </Button>
+                </Grid>
+              </Grid>
+            </div>
+          </Container>
+        </div>
+        <Container className={classes.cardGrid} maxWidth="md">
+          <Grid container spacing={4}>
+            {cards &&
+              cards.map((card) => (
+                <Grid item key={card} xs={12} sm={6} md={4}>
+                  {/* 12 screen columns */}
+                  <Card className={classes.card}>
+                    <CardMedia
+                      className={classes.cardMedia}
+                      image="https://source.unsplash.com/random"
+                      title="image title"
+                    />
+                    <CardContent className={classes.cardContent}>
+                      <Typography variant="h5" gutterBottom>
+                        Blog Post
+                      </Typography>
+                      <Typography>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button size="small" color="primary">
+                        View
+                      </Button>
+                      <Button size="small" color="primary">
+                        Edit
+                      </Button>
+                      <LayerIcon />
+                      <PlayCircleFilledIcon />
+                    </CardActions>
+                  </Card>
+                </Grid>
+              ))}
+          </Grid>
+        </Container>
+      </main>
     </div>
   );
 }
