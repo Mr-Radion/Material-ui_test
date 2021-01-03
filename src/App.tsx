@@ -15,6 +15,12 @@ import {
   CardActions,
   BottomNavigation,
   BottomNavigationAction,
+  Dialog,
+  // DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  TextField,
 } from '@material-ui/core';
 import FolderIcon from '@material-ui/icons/Folder';
 import RestoreIcon from '@material-ui/icons/Restore';
@@ -30,9 +36,18 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 function App() {
   const classes = useHomeStyles();
   const [value, setvalue] = React.useState<string>('recents');
+  const [open, setOpen] = React.useState<boolean>(false);
 
   const handleChange = (e: any, newValue: any) => {
     setvalue(newValue);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
   return (
@@ -53,9 +68,35 @@ function App() {
               News
             </Typography>
             <Box mr={3}>
-              <Button color="inherit" variant="outlined">
+              <Button color="inherit" variant="outlined" onClick={handleClickOpen}>
                 Log in
               </Button>
+              <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                {/* <DialogTitle id="form-dialog-title"> Log in <DialogTitle/>   */}
+                <DialogContent>
+                  <DialogContentText>Log in to see videos</DialogContentText>
+                    <TextField 
+                      autoFocus
+                      margin="dense"
+                      id="name"
+                      label="Email Adress"
+                      type="email"
+                      fullWidth
+                    />
+                    <TextField 
+                      autoFocus
+                      margin="dense"
+                      id="pas"
+                      label="Password"
+                      type="password"
+                      fullWidth
+                    />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary" >Cancel</Button>
+                  <Button onClick={handleClose} color="primary" >Log in</Button>
+                </DialogActions>
+              </Dialog>
             </Box>
             <Button color="secondary" variant="contained">
               Sign up
